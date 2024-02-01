@@ -9,7 +9,7 @@ setup(
     long_description_content_type='text/markdown',
     long_description=long_description,
     keywords="zenity",
-    version='1.0.4',
+    version='1.0.5',
     packages=['zenity'],
     url="https://github.com/Marko2155/zenity_py",
     license='MIT',
