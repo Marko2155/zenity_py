@@ -33,5 +33,4 @@ class Zenity:
             status, output = subprocess.getstatusoutput(self.command)
             return status, output
         else:
-            z = Zenity("Error", "Zenity was not found on your system, please install it and then run this program again.", "error", [])
-            z.Open()
+            tkm.showerror("Error", "Zenity was not found on your system. Please install it and then run this program again.")
