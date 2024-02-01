@@ -15,6 +15,14 @@ class Zenity:
         self.type = type
         self.options = options
         self.command = ""
+        args = ""
+        for option in self.options:
+            if str(option).startswith("!"):
+                opt = str(option).replace("!", "")
+                args += " --" + opt
+            else:
+                args += " " + str(option)
+        self.command = "zenity --" + self.type + " --title " + self.title + " --text '" + self.text + "'" + args
         pass
 
     def Command(self):
@@ -22,14 +30,6 @@ class Zenity:
 
     def Open(self):
         if which("zenity"):
-            args = ""
-            for option in self.options:
-                if str(option).startswith("!"):
-                    opt = str(option).replace("!", "")
-                    args += " --" + opt
-                else:
-                    args += " " + str(option)
-            self.command = "zenity --" + self.type + " --title " + self.title + " --text '" + self.text + "'" + args
             status, output = subprocess.getstatusoutput(self.command)
             return status, output
         else:
