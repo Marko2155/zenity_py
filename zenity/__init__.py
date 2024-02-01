@@ -7,12 +7,18 @@ from shutil import which
 
 class Zenity:
     def __init__(self, title="Attention", text="This text box will close after 5 seconds.", type="info",
-                 options=["!timeout", 5]):
+                 options=None):
+        if options is None:
+            options = ["!timeout", 5]
         self.text = text
         self.title = title
         self.type = type
         self.options = options
+        self.command = ""
         pass
+
+    def Command(self):
+        return self.command
 
     def Open(self):
         if which("zenity"):
@@ -23,7 +29,9 @@ class Zenity:
                     args += " --" + opt
                 else:
                     args += " " + str(option)
-            status, output = subprocess.getstatusoutput("zenity --" + self.type + " --title " + self.title + " --text '" + self.text + "'" + args)
+            self.command = "zenity --" + self.type + " --title " + self.title + " --text '" + self.text + "'" + args
+            status, output = subprocess.getstatusoutput(self.command)
             return status, output
         else:
-            tkm.showerror("Zenity was not found on your system. Please install zenity and try again")
+            z = Zenity("Error", "Zenity was not found on your system, please install it and then run this program again.", "error", [])
+            z.Open()
