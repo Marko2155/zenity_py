@@ -24,6 +24,6 @@ class Zenity:
                 else:
                     args += " " + str(option)
             status, output = subprocess.getstatusoutput("zenity --" + self.type + " --title " + self.title + " --text '" + self.text + "'" + args)
-            return output
+            return status, output
         else:
             tkm.showerror("Zenity was not found on your system. Please install zenity and try again")
